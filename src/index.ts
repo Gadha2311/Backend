@@ -4,7 +4,6 @@ import dotenv from "dotenv";
 import authRouter from "./routes/routes";
 import cors from "cors";
 
-
 dotenv.config();
 
 const app = express();
@@ -14,8 +13,8 @@ console.log(Port);
 
 const DB_URL = process.env.DBURL as string;
 console.log(DB_URL);
-app.use(cors({origin:process.env.FRONTENDURL}))
-app.use(express.json())
+app.use(cors({ origin: process.env.FRONTENDURL }));
+app.use(express.json());
 app.use("/api/auth", authRouter);
 
 mongoose
