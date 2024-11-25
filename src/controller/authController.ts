@@ -96,3 +96,8 @@ export const login: any = async (
     next(error);
   }
 };
+
+
+// export const shortURL= async()=>{
+  
+// }

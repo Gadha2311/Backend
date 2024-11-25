@@ -96,3 +96,5 @@ const login = (req, res, next) => __awaiter(void 0, void 0, void 0, function* ()
     }
 });
 exports.login = login;
+// export const shortURL= async()=>{
+// }

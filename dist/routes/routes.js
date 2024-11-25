@@ -1,8 +1,11 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 const authController_1 = require("../controller/authController");
+const shortUrl_1 = require("../controller/shortUrl");
 const express_1 = require("express");
+const authentication_1 = require("../middleware/authentication");
 const router = (0, express_1.Router)();
 router.post("/signUp", authController_1.signUp);
 router.post("/login", authController_1.login);
+router.post("/shorten", authentication_1.authenticateToken, shortUrl_1.shortURL);
 exports.default = router;
