@@ -22,9 +22,26 @@ export const shortURL:any = async (req: Request, res: Response, next: NextFuncti
     await newUrl.save();
 
 
-    res.status(200).json({ shortUrl });
+    res.status(200).json({shortUrl});
   } catch (error) {
     console.error("Error shortening URL:", error);
+    next(error);
+  }
+};
+
+export const redirectURL:any = async (req: Request, res: Response, next: NextFunction) => {
+  const { shortId } = req.params;
+
+  try {
+    const urlRecord = await URLModel.findOne({ shortId });
+
+    if (!urlRecord) {
+      return res.status(404).json({ message: "Short URL not found" });
+    }
+
+    res.status(200).json({ longUrl: urlRecord.longUrl });
+  } catch (error) {
+    console.error("Error during redirection:", error);
     next(error);
   }
 };

@@ -8,4 +8,5 @@ const router = (0, express_1.Router)();
 router.post("/signUp", authController_1.signUp);
 router.post("/login", authController_1.login);
 router.post("/shorten", authentication_1.authenticateToken, shortUrl_1.shortURL);
+router.get("/:shortId", authentication_1.authenticateToken, shortUrl_1.redirectURL);
 exports.default = router;

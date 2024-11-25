@@ -9,7 +9,7 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
     });
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.shortURL = void 0;
+exports.redirectURL = exports.shortURL = void 0;
 const nanoid_1 = require("nanoid");
 const urlModel_1 = require("../models/urlModel");
 const shortURL = (req, res, next) => __awaiter(void 0, void 0, void 0, function* () {
@@ -34,3 +34,18 @@ const shortURL = (req, res, next) => __awaiter(void 0, void 0, void 0, function*
     }
 });
 exports.shortURL = shortURL;
+const redirectURL = (req, res, next) => __awaiter(void 0, void 0, void 0, function* () {
+    const { shortId } = req.params;
+    try {
+        const urlRecord = yield urlModel_1.URLModel.findOne({ shortId });
+        if (!urlRecord) {
+            return res.status(404).json({ message: "Short URL not found" });
+        }
+        res.status(200).json({ longUrl: urlRecord.longUrl });
+    }
+    catch (error) {
+        console.error("Error during redirection:", error);
+        next(error);
+    }
+});
+exports.redirectURL = redirectURL;
